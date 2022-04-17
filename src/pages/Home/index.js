@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { API_KEY } from '../../config/key';
 import { Container, MovieList, Movie } from "./styles";
@@ -12,7 +13,7 @@ function Home(){
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
       .then(response => response.json())
       .then(data => setMovies(data.results))
-  }, [])
+  }, []);
 
   return(
     <Container>
@@ -22,7 +23,9 @@ function Home(){
         {movies.map(movie => {
           return(
             <Movie key={movie.id}>
-              <img src={`${image_path}${movie.poster_path}`} alt={`${image_path}${movie.poster_path}`}/>
+              <Link to={`/details/${movie.id}`}>
+                <img src={`${image_path}${movie.poster_path}`} alt={`${image_path}${movie.poster_path}`}/>
+              </Link>
               <span>{movie.title}</span>
             </Movie>
           )
