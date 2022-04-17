@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { API_KEY } from '../../config/key';
 import { Container, MovieList, Movie } from "./styles";
 
 function Home(){
 
-  const movies = [
-    {
-      title: 'Spider Man',
-      image_url: 'https://upload.wikimedia.org/wikipedia/pt/thumb/0/00/Spider-Man_No_Way_Home_poster.jpg/250px-Spider-Man_No_Way_Home_poster.jpg'
-    },
-    {
-      title: 'X Man - Evolution',
-      image_url: 'https://upload.wikimedia.org/wikipedia/pt/thumb/0/00/Spider-Man_No_Way_Home_poster.jpg/250px-Spider-Man_No_Way_Home_poster.jpg'
-    }
-  ]
+  const [movies, setMovies] = useState([]);
+  const image_path = 'https://image.tmdb.org/t/p/w500';
+
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+      .then(response => response.json())
+      .then(data => setMovies(data.results))
+  }, [])
 
   return(
     <Container>
@@ -21,8 +21,8 @@ function Home(){
 
         {movies.map(movie => {
           return(
-            <Movie>
-              <img src={movie.image_url} alt={movie.image_url}/>
+            <Movie key={movie.id}>
+              <img src={`${image_path}${movie.poster_path}`} alt={`${image_path}${movie.poster_path}`}/>
               <span>{movie.title}</span>
             </Movie>
           )
