@@ -27,7 +27,7 @@ $ git clone https://github.com/DenilsonMelo/consume-movies-api.git && cd consume
 Follow steps
 
 ## ⚠ Attention
-<strong>Change the file 'src/config/key.js' with your api key</strong>
+<strong>Add the file 'src/config/key.js' with your api key</strong>
 
 <br/>
 
